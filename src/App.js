@@ -1,36 +1,47 @@
-import NewExpense from './components/NewExpense';
-import Expenses from './components/Expenses';
+import { useState } from "react";
+import Expenses from "./components/Expenses";
+import NewExpense from "./components/NewExpense";
 
-const DUMMY_DATA = [
+const Dummy_Data = [
   {
-     date:new Date(2023, 5, 5),
-     title:'Food',
-     amount:400
+    id:1,
+    date:new Date('9, 5, 2022'),
+    title:'Chocolate',
+    amount:500
   },
   {
-    date:new Date(2023, 5, 6),
-     title:'Chocolate',
-     amount:300
+    id:2,
+    date:new Date('9,5,2022'),
+    title:'Cake',
+    amount:700
   },
   {
-    date:new Date(2023, 5, 7),
-     title:'Cake',
-     amount:600
+    id:3,
+    date:new Date('9,5,2021'),
+    title:'Ice Cream',
+    amount:300
   },
   {
-    date:new Date(2023, 5, 8),
-     title:'IceCream',
-     amount:100
+    id:4,
+    date:new Date('9,5,2019'),
+    title:'Drink',
+    amount:200
   }
+
 ]
 
 const App = () =>{
+  const[dailyExpenses, setDailyExpenses] = useState(Dummy_Data);
 
- 
+  const ExpenseEntryInAppHandler = (receivedExpenseEntry) =>{
+    setDailyExpenses((prevExpenss) =>{
+      return [receivedExpenseEntry, ...prevExpenss];
+    })
+  }
   return(
     <div>
-      <NewExpense />
-      <Expenses item={DUMMY_DATA}/>
+      <NewExpense onGettingExpenseEntry={ExpenseEntryInAppHandler}/>
+      <Expenses eItems = {dailyExpenses}/>
     </div>
   );
 }

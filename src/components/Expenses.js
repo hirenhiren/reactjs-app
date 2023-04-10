@@ -1,14 +1,25 @@
-import ExpenseItem from "./ExpenseItem";
-import Card from "./Card";
+import {useState} from 'react';
+import ExpenseItem from './ExpenseItem';
 import './Expenses.css';
+import Card from './Card';
+import ExpenseFilter from './ExpenseFilter';
 const Expenses = (props) =>{
+
+   const[selectedDate, setSelectedDate] = useState('2021')
+
+    const dropDownChangeHandler = (expectedYearValue) =>{
+        setSelectedDate(expectedYearValue);
+    }
+
+    const filteredYear = props.eItems.filter((expenseeYear) =>{
+        return (expenseeYear.date.getFullYear().toString() === selectedDate)
+    })
+
     return(
         <Card className='expenses'>
-          <ExpenseItem date={props.item[0].date} title={props.item[0].title} amount={props.item[0].amount}/>
-          <ExpenseItem date={props.item[1].date} title={props.item[1].title} amount={props.item[1].amount}/>
-          <ExpenseItem date={props.item[2].date} title={props.item[2].title} amount={props.item[2].amount}/>
-          <ExpenseItem date={props.item[3].date} title={props.item[3].title} amount={props.item[3].amount}/>
-        </Card>
+             <ExpenseFilter selected={selectedDate} onDropDownSelect = {dropDownChangeHandler}/>
+             {filteredYear.length === 0 ? <p> No Data Found</p> : filteredYear.map((allExpenseItem) => <ExpenseItem  key={allExpenseItem.id} date={allExpenseItem.date} title={allExpenseItem.title} amount={allExpenseItem.amount}/>) }
+             </Card>
     );
 }
 
