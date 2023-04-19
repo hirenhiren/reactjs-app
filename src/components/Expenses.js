@@ -5,7 +5,7 @@ import Card from './Card';
 import ExpenseFilter from './ExpenseFilter';
 const Expenses = (props) =>{
 
-   const[selectedDate, setSelectedDate] = useState('2021')
+   const[selectedDate, setSelectedDate] = useState('2023')
 
     const dropDownChangeHandler = (expectedYearValue) =>{
         setSelectedDate(expectedYearValue);
